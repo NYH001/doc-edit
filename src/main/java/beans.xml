@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+	    http://www.springframework.org/schema/beans
+	    http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+	    http://www.springframework.org/schema/util 
+		http://www.springframework.org/schema/util/spring-util-4.3.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+		
+		<context:component-scan base-package="UI"></context:component-scan>
+	
+		<bean id="addOperation" class="Spring.AOPOperation"></bean>
+		
+		<aop:config>
+				<aop:aspect order="1" ref="addUserInterface">
+					<aop:pointcut expression="execution(* Spring.AOPOperation.initInformation(..))" id="addExec"/>
+						<aop:around method="giveTheValue" pointcut-ref="addExec"/>
+				</aop:aspect>
+				
+	<!-- 			<aop:aspect order="2" ref="alterInterface">
+					<aop:pointcut expression="execution(* Spring.AOPOperation.alterInformation(..))" id="alterExec"/>
+						<aop:around method="alterTheValue" pointcut-ref="alterExec"/>
+				</aop:aspect> -->
+		</aop:config>
+</beans>
